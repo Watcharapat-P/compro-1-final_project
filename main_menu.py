@@ -1,13 +1,14 @@
 import turtle
-
+import run_game
 
 class TextBox:
-    def __init__(self, width=0, height=0, text='', state=0):
+    def __init__(self, width=0, height=0, text='', state=0, command=None):
         self.x, self.y = turtle.pos()
         self.width = width
         self.height = height
         self.text = text
         self.state = state
+        self.command = command
 
     def draw(self):
         turtle.penup()
@@ -53,22 +54,22 @@ class Menu:
         turtle.hideturtle()
         turtle.penup()
         turtle.bgcolor("#E0FFFF")
-        print(turtle.screensize())
         turtle.goto(0, 300)
-        turtle.write("Pinball GAME", font=("Arial", 36, "bold"), align="center")
+        turtle.write("Triangle Shoot", font=("Arial", 36, "bold"), align="center")
         turtle.penup()
         turtle.goto(-200, -200)
-        play_button = TextBox(width=200, height=100, text='Play Game', state=1)
+        play_button = TextBox(width=200, height=100, text='Play Game', state=1, command=self.play_game)
         self.button_list.append(play_button)
         turtle.goto(200, -200)
-        exit_button = TextBox(width=200, height=100, text='Exit', state=0)
+        exit_button = TextBox(width=200, height=100, text='Exit', state=0, command=self.exit_game)
         self.button_list.append(exit_button)
         for button in self.button_list:
             button.draw()
         turtle.listen()
         turtle.onkeypress(self.change_button, 'Right')
         turtle.onkeypress(self.change_button, 'Left')
-        turtle.done()
+        turtle.onkeypress(self.select_button, 'Return')
+        turtle.mainloop()
 
     def change_button(self):
         for i in range(len(self.button_list)):
@@ -83,20 +84,25 @@ class Menu:
                 self.redraw()
                 break
 
+    def select_button(self):
+        for button in self.button_list:
+            if button.state == 1:
+                if button.command:
+                    button.command()
+
     def redraw(self):
         turtle.clear()
         turtle.speed(0)
         turtle.hideturtle()
         turtle.goto(0, 300)
-        turtle.write("Pinball GAME", font=("Arial", 24, "bold"), align="center")
+        turtle.write("Triangle Shoot", font=("Arial", 36, "bold"), align="center")
         turtle.penup()
         for button in self.button_list:
             button.draw()
 
+    def play_game(self):
+        turtle.clear()
+        run_game.ShooterGame()
 
-
-
-
-
-
-Menu()
+    def exit_game(self):
+        turtle.bye()

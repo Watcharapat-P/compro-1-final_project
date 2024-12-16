@@ -31,8 +31,8 @@ The project utilizes object-oriented programming with the following key classes:
 This project might not be as complicated as it could have been due to my own carelessness, for example adding the exploded effect when the boss died, and make it shoot out the bullet in all direction and add the bullet bouncing.
 I think that if those features were to be implemented well, it would help me being more sastisfied with the result and rate it higher.
 
-### Game DEMO
-https://youtu.be/ebby83m3F7o
+### Game DEMO and Presention
+https://youtu.be/EqMKBMWzCcM
 
 ### UML Diagram
 
